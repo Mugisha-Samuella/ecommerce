@@ -1,4 +1,7 @@
-package com.jetbrains;
+package com.jetbrains.dao;
+
+import com.jetbrains.model.Category;
+import com.jetbrains.model.DatabaseConnection;
 
 import java.sql.*;
 

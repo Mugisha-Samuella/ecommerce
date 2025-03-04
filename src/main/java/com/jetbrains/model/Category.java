@@ -1,4 +1,4 @@
-package com.jetbrains;
+package com.jetbrains.model;
 
 public class Category {
     private int categoryId;

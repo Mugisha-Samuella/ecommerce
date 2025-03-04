@@ -1,4 +1,4 @@
-package com.jetbrains;
+package com.jetbrains.model;
 
 public class Product {
     private int productId;

@@ -1,4 +1,9 @@
-package com.jetbrains;
+package com.jetbrains.view;
+
+import com.jetbrains.dao.CategoryOperations;
+import com.jetbrains.dao.ProductOperations;
+import com.jetbrains.model.Category;
+import com.jetbrains.model.Product;
 
 import java.util.Scanner;
 

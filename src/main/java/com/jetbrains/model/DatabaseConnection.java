@@ -1,4 +1,4 @@
-package com.jetbrains;
+package com.jetbrains.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
