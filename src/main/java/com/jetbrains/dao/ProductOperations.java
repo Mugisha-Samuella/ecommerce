@@ -1,13 +1,12 @@
 package com.jetbrains.dao;
 
-import com.jetbrains.model.DatabaseConnection;
 import com.jetbrains.model.Product;
-
+import com.jetbrains.model.DatabaseConnection;
 import java.sql.*;
 
 public class ProductOperations {
 
-    // Method to add a new product
+    // Add a new product
     public void addProduct(Product product) {
         String query = "INSERT INTO products (product_name, price, stock, category_id) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -23,28 +22,7 @@ public class ProductOperations {
         }
     }
 
-    // Method to view a product based on product ID
-    public void viewProduct(int productId) {
-        String query = "SELECT * FROM products WHERE product_id = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, productId);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    System.out.println("Product ID: " + rs.getInt("product_id"));
-                    System.out.println("Product Name: " + rs.getString("product_name"));
-                    System.out.println("Price: " + rs.getDouble("price"));
-                    System.out.println("Stock: " + rs.getInt("stock"));
-                } else {
-                    System.out.println("No product found with ID: " + productId);
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Error viewing product: " + e.getMessage());
-        }
-    }
-
-    // Method to update an existing product
+    // Update an existing product
     public void updateProduct(Product product) {
         String query = "UPDATE products SET product_name = ?, price = ?, stock = ?, category_id = ? WHERE product_id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -61,7 +39,7 @@ public class ProductOperations {
         }
     }
 
-    // Method to delete a product based on product ID
+    // Delete a product by ID
     public void deleteProduct(int productId) {
         String query = "DELETE FROM products WHERE product_id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
@@ -71,6 +49,27 @@ public class ProductOperations {
             System.out.println("Product deleted successfully!");
         } catch (SQLException e) {
             System.err.println("Error deleting product: " + e.getMessage());
+        }
+    }
+
+    // View a product by ID
+    public void viewProduct(int productId) {
+        String query = "SELECT * FROM products WHERE product_id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("Product ID: " + rs.getInt("product_id"));
+                System.out.println("Product Name: " + rs.getString("product_name"));
+                System.out.println("Price: " + rs.getDouble("price"));
+                System.out.println("Stock: " + rs.getInt("stock"));
+                System.out.println("Category ID: " + rs.getInt("category_id"));
+            } else {
+                System.out.println("Product not found.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving product: " + e.getMessage());
         }
     }
 }
